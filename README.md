@@ -3,7 +3,7 @@
 <div align="center">
 
 ![Version](https://img.shields.io/badge/version-1.0-blue.svg?style=for-the-badge)
-![Minecraft](https://img.shields.io/badge/minecraft-1.16--1.21+-green.svg?style=for-the-badge)
+![Minecraft](https://img.shields.io/badge/minecraft-1.16--1.26.2-green.svg?style=for-the-badge)
 ![Software](https://img.shields.io/badge/software-Spigot%20%7C%20Paper%20%7C%20Purpur-orange.svg?style=for-the-badge)
 [![Discord](https://img.shields.io/badge/Discord-Join%20Community-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/BMFkMYf3rq)
 
