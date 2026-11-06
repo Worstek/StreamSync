@@ -50,7 +50,7 @@ Requires [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245
 | Placeholder | Description | Example Output |
 | :--- | :--- | :--- |
 | `%streamsync_status%` | Connection status to TikTok Live | `ONLINE` / `OFFLINE` |
-| `%streamsync_tiktok_user%` | Currently connected TikTok account | `worsteck` |
+| `%streamsync_tiktok_user%` | Currently connected TikTok account | `worstek` |
 | `%streamsync_goal_type%` | Active challenge type | `SURVIVE` / `MINE_BLOCKS` |
 | `%streamsync_goal_target%` | Target value or duration | `24m` / `25` |
 | `%streamsync_goal_current%` | Current progress counter | `18` |
