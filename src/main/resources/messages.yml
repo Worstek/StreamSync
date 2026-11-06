@@ -1,0 +1,43 @@
+# =======================================================
+#               StreamSync - messages.yml
+#       All system messages, formats and prefixes
+#   Supports HEX colors (&#RRGGBB, <#RRGGBB>) & color codes
+# =======================================================
+
+prefix: "&#74ACF6● StreamSync&8:"
+
+# Format for incoming TikTok chat comments in-game:
+tiktok-chat-format: "&#928F86[&#928F85T&#928E84i&#928E83k&#918D82T&#918D81o&#918C80k&#918C7F] &f%user%&8: &f%message%"
+
+# Stream connection notifications:
+connected: "%prefix% &fSuccessfully connected to TikTok: &#74ACF6@%user%"
+disconnected: "%prefix% &fDisconnected from TikTok: &#74ACF6@%user%"
+already-connected: "%prefix% &fAlready connected to &#74ACF6@%user%"
+connecting: "%prefix% &fConnecting to TikTok: &#74ACF6@%user%"
+not-connected: "%prefix% &fNot connected to any TikTok live."
+error: "%prefix% &fTikTok error: &c%error%"
+
+# Streamer management:
+streamer-added: "%prefix% &#74ACF6%player% &fhas been added to streamers"
+streamer-already-added: "%prefix% &#74ACF6%player% &fis already in the streamers"
+streamer-removed: "%prefix% &#74ACF6%player% &fhas been removed from streamers"
+streamer-not-found: "%prefix% &#74ACF6%player% &fnot found in the streamers"
+streamer-list-empty: "%prefix% &fNo streamers is added. &#74ACF6Auto-targeting &fis working"
+not-online: "%prefix% &fPlayer &#74ACF6%player% &fis not online"
+
+# Goal notifications:
+goal-started: "%prefix% &fGoal started: &#74ACF6%type% &7(&fTarget: &#74ACF6%target%&7)"
+goal-completed: "%prefix% &fGoal &#74ACF6%type% &fhas been completed"
+goal-failed: "%prefix% &fGoal challenge &#74ACF6%type% &#FC4E4Efailed"
+goal-stopped: "%prefix% &fGoal has been stopped"
+goal-already-active: "%prefix% &fA goal is already active"
+goal-not-active: "%prefix% &fNo goal is currently active"
+goal-type-set: "%prefix% &fGoal type set to: &#74ACF6%type%"
+goal-time-added: "%prefix% &fAdded &#74ACF6+%time% &fto the challenge"
+goal-time-removed: "%prefix% &fRemoved &#74ACF6-%time% &ffrom the challenge"
+goal-time-only-survive: "%prefix% &fTime can only be modified for SURVIVE challenges"
+
+# Commands and status:
+no-permission: "%prefix% &fYou don't have permission"
+reloaded: "%prefix% &fConfiguration successfully reloaded"
+queue-cleared: "%prefix% &fEvent queue cleared"

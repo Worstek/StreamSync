@@ -1,0 +1,16 @@
+name: StreamSync
+version: '1.0'
+main: com.worstek.streamsync.StreamSync
+api-version: '1.16'
+author: Worstek
+softdepend: [PlaceholderAPI]
+description: Interactive real-time TikTok streaming plugin for Minecraft
+commands:
+  streamsync:
+    aliases: [ss]
+    description: Main command for StreamSync
+    permission: streamsync.admin
+permissions:
+  streamsync.admin:
+    description: Full access to StreamSync commands
+    default: op

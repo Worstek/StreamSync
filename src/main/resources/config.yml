@@ -1,0 +1,25 @@
+# =======================================================
+#               StreamSync v1.0 by Worstek
+#                 Main Configuration
+# =======================================================
+
+# Active streamers who will receive the in-game events
+# Multiple streamers supported! Use /ss streamer add <player> in-game
+# If empty, automatically targets active online players.
+streamers:
+  - ""
+
+# TikTok Live connection settings
+# Can be changed in-game using /ss connect <username>
+tiktok:
+  username: ""
+  enabled: true
+
+# Master event toggles:
+likes-enabled: true
+gifts-enabled: true
+chat-triggers-enabled: true
+follow-enabled: true
+
+# Show TikTok live chat messages directly in-game
+chat-show: true

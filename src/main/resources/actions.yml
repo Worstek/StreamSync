@@ -1,0 +1,446 @@
+# =======================================================
+#               StreamSync - actions.yml
+#       Interactive Stream Actions (TikTok Live)
+# =======================================================
+#
+# Available actions:
+#   GOAL_ADDTIME, GOAL_REMOVETIME, GOAL_WIN, GOAL_LOSE,
+#   HEART_GIVE, HEART_REMOVE, HEART_REGENERATE,
+#   SPAWN_MOB, EFFECT, RANDOM_EFFECT, RANDOM_EVENT,
+#   ITEM_GIVE, TRAP, HOTBAR_SCRAMBLE, FREEZE, SLAP,
+#   JUMPSCARE_SOUND, LAUNCH_UP, DROP_HAND, DROP_RANDOM,
+#   CLEAR_HAND, LIGHTNING, EXPLOSION, IGNITE, SPIN,
+#   FAKE_HISS, ANVIL_FALL, LOOK_SKY, LOOK_GROUND, COMMAND
+#
+# Universal Placeholders:
+#   %user%     - viewer's display name
+#   %gift%     - gift name
+#   %amount%   - gift / likes amount
+#   %message%  - viewer's chat message
+#   %streamer% - streamer's player name
+#   %mob%      - resolved mob name (when SPAWN_MOB is used)
+#   %item%     - resolved item name (when ITEM_GIVE is used)
+#   %block%    - resolved trap block (when TRAP is used)
+#   %effect%   - resolved effect name (when EFFECT is used)
+#
+# RANDOM Support:
+#   You can write RANDOM (or ranges like "1-5", "5-15") for:
+#   - mob: RANDOM (and optional pool: [CREEPER, ZOMBIE, ...])
+#   - item: RANDOM (and optional pool: [DIAMOND, GOLD_INGOT, ...])
+#   - effect: RANDOM (and optional pool: [SPEED, BLINDNESS, ...])
+#   - block: RANDOM (and optional pool: [COBWEB, OBSIDIAN, ...])
+#   - sound: RANDOM (and optional sound-pool: [...])
+#   - sound-name: RANDOM (in JUMPSCARE_SOUND)
+#   - amount: RANDOM or "1-5" (in SPAWN_MOB, ITEM_GIVE, HEART_*)
+#   - duration: RANDOM or "3-10" (in TRAP, FREEZE, IGNITE, EFFECT)
+#   - power: RANDOM or "1-3" (in SLAP, LAUNCH_UP, EXPLOSION)
+#   - time: RANDOM (in GOAL_ADDTIME, GOAL_REMOVETIME)
+#   - yaw: RANDOM (in SPIN)
+
+# =======================================================
+# 1. STREAM CHAT TRIGGERS (Viewer types keyword -> action!)
+# =======================================================
+chat-triggers:
+  enabled: true
+  triggers:
+    "creeper":
+      action: SPAWN_MOB
+      mob: CREEPER
+      amount: 1
+      radius: 2.0
+      name: "&cCreeper from &e%user%"
+      sound: ENTITY_CREEPER_PRIMED
+      title: "&c&lCREEPER"
+      subtitle: "&7Spawned by &e%user%"
+
+    "web":
+      action: TRAP
+      block: COBWEB
+      radius: 1
+      height: 2
+      duration: 5
+      fill-inside: true
+      sound: BLOCK_COBWEB_PLACE
+      title: "&f&lCOBWEB TRAP!"
+      subtitle: "&75 seconds from &e%user%"
+
+    "random":
+      action: RANDOM_EVENT
+      sound: ENTITY_PLAYER_LEVELUP
+      title: "&e&l? RANDOM EVENT ?"
+      subtitle: "&7Triggered by &e%user%"
+      pool:
+        - "creeper"
+        - "web"
+
+# =======================================================
+# 2. LIKES (Triggers every N likes)
+# =======================================================
+likes:
+  enabled: true
+  step: 10 # Every 10 likes
+  action: RANDOM_EFFECT
+  duration: 6
+  sound: ENTITY_EXPERIENCE_ORB_PICKUP
+  title: "&d&l+10 LIKES!"
+  subtitle: "&7Random effect applied!"
+
+# =======================================================
+# 3. GIFTS (TIKTOK GIFTS)
+# You can set actions for specific gift names OR whole categories from giftLists!
+# =======================================================
+gifts:
+  enabled: true
+
+  "Rose":
+    action: GOAL_ADDTIME
+    time: "30s"
+    sound: ENTITY_PLAYER_LEVELUP
+    title: "&d&lROSE &8» &f%user%"
+    subtitle: "&a+30s to challenge time!"
+
+  "TikTok":
+    action: HEART_REMOVE
+    amount: 1
+    sound: ENTITY_PLAYER_HURT
+    title: "&d&lTIKTOK &8» &f%user%"
+    subtitle: "&c-1 Max Heart!"
+
+  "Panda":
+    action: HEART_GIVE
+    amount: 1
+    sound: ENTITY_PLAYER_LEVELUP
+    title: "&e&lPANDA &8» &f%user%"
+    subtitle: "&a+1 Max Heart!"
+
+  "Lion":
+    action: GOAL_WIN
+    sound: UI_TOAST_CHALLENGE_COMPLETE
+    title: "&6&lLION &8» &f%user%"
+    subtitle: "&a&lINSTANT CHALLENGE VICTORY!"
+
+  "default":
+    action: ITEM_GIVE
+    item: RANDOM # Gives random item from default pool!
+    amount: "1-3" # Gives random 1 to 3 items!
+    drop-if-full: true
+    sound: RANDOM # Plays random pleasant sound!
+    title: "&a&lGIFT &e%gift%!"
+    subtitle: "&7Sent &e%amount%x %item% &7by &f%user%"
+
+# =======================================================
+# 4. TIKTOK GIFTS LIST (giftLists)
+# Complete reference of real TikTok gifts categorized by coin tiers!
+# You can use any individual gift name under 'gifts:', OR you can
+# even bind an action to an entire tier (e.g. 'coins-1' or 'coins-10000+')!
+# =======================================================
+giftLists:
+  # 1 Coin (Micro gifts):
+  coins-1:
+    - "Rose"
+    - "TikTok"
+    - "Ice Cream Cone"
+    - "Weights"
+    - "GG"
+    - "Finger Heart"
+    - "Mini Speaker"
+    - "Gamepad"
+    - "Lightning Bolt"
+    - "Heart Me"
+    - "Doughnut"
+    - "Football"
+    - "Little Crown"
+    - "Love You"
+    - "Wishing Bottle"
+    - "Star"
+    - "Heart"
+    - "Coffee"
+    - "Tea"
+    - "Duck"
+    - "Panda"
+
+  # 5 - 30 Coins (Low tier):
+  coins-5-30:
+    - "Mic"
+    - "Love Bang"
+    - "Perfume"
+    - "Paper Crane"
+    - "Butterfly"
+    - "Sunglasses"
+    - "Cap and Mustache"
+    - "Garland"
+    - "Boxing Gloves"
+    - "Rock 'n' Roll"
+    - "Hand Hearts"
+    - "Lollipop"
+    - "Crown"
+    - "Fire"
+    - "Gold Coin"
+    - "Hi"
+
+  # 50 - 500 Coins (Medium tier):
+  coins-50-500:
+    - "Confetti"
+    - "Party Hat"
+    - "Swan"
+    - "Air Horn"
+    - "Money Gun"
+    - "Dragon Flame"
+    - "Corgi"
+    - "Love Explosion"
+    - "Mirror"
+    - "Origami"
+    - "Magic Boots"
+    - "Diamond"
+    - "Guitar"
+    - "Fireworks"
+    - "Treasure Box"
+
+  # 1000 - 5000 Coins (High tier):
+  coins-1000-5000:
+    - "Galaxy"
+    - "Motorcycle"
+    - "Gold Mine"
+    - "Train"
+    - "Submarine"
+    - "Ferris Wheel"
+    - "Interstellar"
+    - "Unicorn"
+    - "Whale Diving"
+    - "Supercar"
+    - "Helicopter"
+    - "Castle"
+    - "Rocket"
+    - "Crown of Thorns"
+    - "Chariot"
+
+  # 10000+ Coins (Mega gifts):
+  coins-10000+:
+    - "Falcon"
+    - "Phoenix"
+    - "Dragon"
+    - "Leon the Kitten"
+    - "Lion"
+    - "TikTok Shuttle"
+    - "TikTok Universe"
+    - "Planet"
+    - "Pegasus"
+    - "Zeus"
+    - "Adam's Dream"
+    - "Sunset Speedway"
+    - "Gorilla"
+    - "Golden Dragon"
+
+# =======================================================
+# 5. FOLLOW (NEW FOLLOWERS)
+# =======================================================
+follow:
+  enabled: true
+  action: HEART_REGENERATE
+  amount: 1
+  sound: ENTITY_EXPERIENCE_ORB_PICKUP
+  title: "&b&lNEW FOLLOWER!"
+  subtitle: "&a+1 Heart healed for &e%user%&a's follow!"
+
+# =======================================================
+# 6. ALL AVAILABLE ACTIONS EXAMPLES (Cheat Sheet):
+# =======================================================
+#
+# # 1. SPAWN_MOB - spawns mobs (supports mob: RANDOM or pool: [...])
+# example_mob:
+#   action: SPAWN_MOB
+#   mob: RANDOM # Or CREEPER, ZOMBIE, SKELETON, etc.
+#   pool: # (optional custom pool of mobs to choose from)
+#     - "CREEPER"
+#     - "ZOMBIE"
+#     - "SKELETON"
+#     - "WARDEN"
+#   amount: "1-5" # Or fixed number 3, or "RANDOM"
+#   radius: 3.0
+#   name: "&c%mob% from &e%user%"
+#   sound: RANDOM # Plays random sound!
+#   title: "&c&l!MOB: %mob%"
+#   subtitle: "&7Spawned by &e%user%"
+#
+# # 2. EFFECT - gives potion effect (supports effect: RANDOM or pool: [...])
+# example_effect:
+#   action: EFFECT
+#   effect: RANDOM # Or BLINDNESS, SPEED, LEVITATION, NAUSEA, etc.
+#   pool: # (optional pool)
+#     - "BLINDNESS"
+#     - "LEVITATION"
+#     - "SPEED"
+#     - "NAUSEA"
+#   duration: "5-15" # Or fixed 10 seconds, or "RANDOM"
+#   amplifier: 1
+#   particles: true
+#   title: "&e&lEFFECT: %effect%"
+#   subtitle: "&7From &e%user%"
+#
+# # 3. RANDOM_EFFECT - applies a random effect from pool
+# example_rand_effect:
+#   action: RANDOM_EFFECT
+#   duration: 8
+#   amplifier: 1
+#   pool: # optional pool of effects
+#     - "BLINDNESS"
+#     - "LEVITATION"
+#     - "SPEED"
+#     - "NAUSEA"
+#
+# # 4. RANDOM_EVENT - triggers a random action from chat-triggers
+# example_rand_event:
+#   action: RANDOM_EVENT
+#   pool: # optional list of triggers to choose from
+#     - "!creeper"
+#     - "!web"
+#
+# # 5. ITEM_GIVE - gives item (supports item: RANDOM or pool: [...])
+# example_item:
+#   action: ITEM_GIVE
+#   item: RANDOM # Or DIAMOND, GOLDEN_APPLE, etc.
+#   pool: # (optional pool)
+#     - "DIAMOND"
+#     - "EMERALD"
+#     - "GOLDEN_APPLE"
+#   amount: "1-5" # Random 1-5 or fixed number
+#   drop-if-full: true
+#   title: "&a&lITEM: %item%"
+#   subtitle: "&7Given to streamer by &e%user%"
+#
+# # 6. TRAP - places temporary blocks around the player (supports block: RANDOM)
+# example_trap:
+#   action: TRAP
+#   block: RANDOM # Or COBWEB, OBSIDIAN, SLIME_BLOCK, ICE, GLASS, etc.
+#   pool: # (optional pool)
+#     - "COBWEB"
+#     - "OBSIDIAN"
+#     - "SLIME_BLOCK"
+#   radius: 1
+#   height: 2
+#   duration: "3-8" # Random 3-8 seconds
+#   fill-inside: false
+#   title: "&f&lTRAP: %block%"
+#   subtitle: "&7Trapped by &e%user%"
+#
+# # 7. HOTBAR_SCRAMBLE - shuffles items in player's hotbar
+# example_scramble:
+#   action: HOTBAR_SCRAMBLE
+#   sound: ITEM_ARMOR_EQUIP_GENERIC
+#
+# # 8. FREEZE - freezes player on the spot for X seconds
+# example_freeze:
+#   action: FREEZE
+#   duration: "2-6" # Random 2 to 6 seconds
+#
+# # 9. SLAP - knocks player back in a random direction
+# example_slap:
+#   action: SLAP
+#   power: "1.0-3.0" # Random knockback power
+#
+# # 10. JUMPSCARE_SOUND - plays loud scary sound (supports sound-name: RANDOM)
+# example_jumpscare:
+#   action: JUMPSCARE_SOUND
+#   sound-name: RANDOM # Or "ENTITY_ENDER_DRAGON_GROWL", "ENTITY_WARDEN_ROAR"
+#   pool: # (optional pool)
+#     - "ENTITY_ENDER_DRAGON_GROWL"
+#     - "ENTITY_WARDEN_ROAR"
+#     - "ENTITY_GHAST_SCREAM"
+#
+# # 11. LAUNCH_UP - launches player up into the sky
+# example_launch:
+#   action: LAUNCH_UP
+#   power: "1.0-2.5"
+#
+# # 12. DROP_HAND - drops current held item to floor
+# example_drop_hand:
+#   action: DROP_HAND
+#
+# # 13. DROP_RANDOM - drops 1 random item from anywhere in inventory
+# example_drop_rand:
+#   action: DROP_RANDOM
+#
+# # 14. CLEAR_HAND - completely deletes held item
+# example_clear_hand:
+#   action: CLEAR_HAND
+#
+# # 15. LIGHTNING - strikes lightning on player
+# example_lightning:
+#   action: LIGHTNING
+#
+# # 16. EXPLOSION - creates an explosion
+# example_explosion:
+#   action: EXPLOSION
+#   power: "1.0-3.5"
+#   break-blocks: false
+#   set-fire: false
+#
+# # 17. IGNITE - sets player on fire
+# example_ignite:
+#   action: IGNITE
+#   duration: "3-8" # in seconds
+#
+# # 18. SPIN - spins camera (supports yaw: RANDOM)
+# example_spin:
+#   action: SPIN
+#   yaw: RANDOM # Or 180.0, 90.0, etc.
+#
+# # 19. FAKE_HISS - plays creeper priming sound
+# example_hiss:
+#   action: FAKE_HISS
+#
+# # 20. ANVIL_FALL - drops a falling anvil from the sky
+# example_anvil:
+#   action: ANVIL_FALL
+#
+# # 21. LOOK_SKY / LOOK_GROUND - snaps camera looking up/down
+# example_look_sky:
+#   action: LOOK_SKY
+# example_look_ground:
+#   action: LOOK_GROUND
+#
+# # 22. GOAL_ADDTIME - adds time to active stream challenge (supports time: RANDOM)
+# example_add_time:
+#   action: GOAL_ADDTIME
+#   time: RANDOM # Or "30s", "1m", "5m"
+#   pool: # (optional pool of times)
+#     - "30s"
+#     - "1m"
+#     - "2m"
+#
+# # 23. GOAL_REMOVETIME - removes time from active challenge (supports time: RANDOM)
+# example_rem_time:
+#   action: GOAL_REMOVETIME
+#   time: RANDOM # Or "1m"
+#
+# # 24. GOAL_WIN - instantly completes challenge
+# example_goal_win:
+#   action: GOAL_WIN
+#
+# # 25. GOAL_LOSE - instantly fails challenge
+# example_goal_lose:
+#   action: GOAL_LOSE
+#
+# # 26. HEART_GIVE - adds extra max heart (supports amount: RANDOM or "1-3")
+# example_heart_give:
+#   action: HEART_GIVE
+#   amount: "1-3" # 1 to 3 hearts
+#
+# # 27. HEART_REMOVE - removes max heart (protected to 1 heart min)
+# example_heart_remove:
+#   action: HEART_REMOVE
+#   amount: "1-2"
+#
+# # 28. HEART_REGENERATE - instantly heals missing hearts
+# example_heart_regen:
+#   action: HEART_REGENERATE
+#   amount: "1-3" # heals 1 to 3 hearts
+#
+# # 29. COMMAND - executes console command
+# example_command:
+#   action: COMMAND
+#   command: "give %streamer% golden_apple 1"
+#   # Or multiple commands:
+#   # commands:
+#   #   - "give %streamer% diamond 1"
+#   #   - "say %streamer% received diamond!"

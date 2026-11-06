@@ -1,0 +1,94 @@
+# =======================================================
+#               StreamSync - goal.yml
+#          Interactive Stream Goals & Challenges
+# =======================================================
+
+goal:
+  # Challenge Type:
+  #   RANDOM          - Randomly selects a goal from the pool below!
+  #   SURVIVE         - Survive for N time without dying
+  #   KILL_PLAYERS    - Kill N players
+  #   KILL_MOBS       - Kill N mobs
+  #   GET_ITEM        - Collect N amount of item
+  #   MINE_BLOCKS     - Mine N blocks
+  type: "RANDOM"
+
+  # Static target goal value (used when type is NOT RANDOM):
+  # Supports time units: 300s, 5m, 1h, 1d (or plain number)
+  target: "5m"
+
+  # Target entity or item type (used when type is NOT RANDOM):
+  # For KILL_MOBS: "CREEPER", "ZOMBIE", "ANY"
+  # For GET_ITEM: "DIAMOND", "IRON_INGOT"
+  # For MINE_BLOCKS: "COAL_ORE", "DIORITE", "ANY"
+  target-type: "ANY"
+
+  # If true, streamer dying immediately fails the active challenge.
+  # If false, streamer dying does NOT stop or fail the challenge.
+  die-lose: false
+
+  # If true, when the challenge is completed, streamer's inventory, armor,
+  # offhand, experience level and active potion effects are wiped clean.
+  goal-completed-clearInventory: false
+
+  # If true, when the challenge is completed, streamer is teleported
+  # to a new safe random position far away in the world!
+  newGoalNewPosition: true
+
+  # =======================================================
+  # Settings for type: RANDOM
+  # Automatically chooses realistic, fun challenges!
+  # =======================================================
+  random-settings:
+    # Auto-start next random challenge 5 seconds after win/loss:
+    auto-restart: true
+
+    # Time range for SURVIVE challenge (always random in full minutes):
+    minTime: "5m"
+    maxTime: "30m"
+
+    # Kill range for KILL_PLAYERS and KILL_MOBS:
+    # (Note: KILL_PLAYERS is automatically excluded if less than 3 players online)
+    minKills: 5
+    maxKills: 15
+
+    # Collect range for GET_ITEM (only achievable survival items, no bedrock/barrier):
+    minCollectItems: 5
+    maxCollectItems: 30
+
+    # Mine range for MINE_BLOCKS (only mineable survival blocks, no bedrock/barrier/obsidian):
+    minMineBlocks: 15
+    maxMineBlocks: 30
+
+  # BossBar display at the top of the screen:
+  bossbar:
+    enabled: true
+    title: "&#74ACF6● &fSurvive: &#74ACF6%time% &8(&f%percent%%&8)"
+    color: "BLUE" # Options: PINK, BLUE, RED, GREEN, YELLOW, PURPLE, WHITE
+    style: "SOLID" # Options: SOLID, SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20
+
+  # ActionBar display above hotbar:
+  actionbar:
+    enabled: false
+    text: "&#74ACF6● &fChallenge: &#74ACF6%type% &8| &fProgress: &#74ACF6%current%&7/&#74ACF6%target%"
+
+  # Time formatting for %time% placeholder:
+  format-days: "d"
+  format-hours: "h"
+  format-minutes: "m"
+  format-seconds: "s"
+
+  # Actions executed when goal is successfully completed:
+  rewards:
+    title: "&a&lCHALLENGE COMPLETED!"
+    subtitle: "&fChallenge conquered on stream!"
+    sound: "UI_TOAST_CHALLENGE_COMPLETE"
+    firework: true
+    commands:
+      # - "say Great job %streamer% for completing the challenge!"
+
+  # Actions executed if goal fails:
+  failed:
+    title: "&#FC4E4E&lCHALLENGE FAILED!"
+    subtitle: "&7Better luck next stream!"
+    sound: "ENTITY_ENDER_DRAGON_GROWL"
